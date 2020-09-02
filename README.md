@@ -1,10 +1,25 @@
-- Project's Name (pick one 😎)
-The beginner project
+### The beginner project
 
-- Project's Description
-A new project for developing a new team mate for TaqTile. Here I'll be training some 
-git skills and other stuffs.
+### Project's Description
 
-- Environment and tools *
+A project for developing a new team mate for TaqTile. Here I'll be training some 
+git skills and other stuffs related to the daily routine of the job.
 
-- Steps to run and debug *
+### Environment and tools 
+
+Environment:
+.Windows 10
+
+Tools used: 
+.VSCode
+.GitBash
+.NodeJS version: v12.16.1
+.ReactTS
+
+### Steps to run and debug 
+
+Clone this rep and then, at project's root folder, run:
+```
+npm start
+```
+
