@@ -1,39 +1,64 @@
-.App {
+.Container {
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-  font-size: 150px;
+.Title {
+  align-self: flex-start;
+  font-size: 28px;
+  margin: 35px 0px 80px 25px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Device-container {
+  height: 667px;
+  width: 375px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
+  color: black;
+}
+
+.Form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+label {
+  align-self: flex-start;
+  margin-left: 5%;
+  margin-bottom: 8px;
+  font-size: 21px;
+}
+
+input:first-of-type {
+  margin-bottom: 60px;
+}
+input:nth-of-type(2) {
+  margin-bottom: 50px;
+}
+
+.Input{
+  border-style: solid;
+  border-color: gray;
+  border-width: 2px 4px;
+  border-radius: 18px;
+  outline: none;
+  width: 90%;
+  height: 50px;
+  font-size: 25px;
+}
+
+.Button {
+  background-color: mediumslateblue;
   color: white;
+  border: none;
+  border-radius: 18px;
+  outline: none;
+  width: 90%;
+  height: 50px;
+  font-size: 20px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
