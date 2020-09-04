@@ -1,27 +1,19 @@
 import React from 'react';
 import './styled.css';
-//import { setToken } from '../../Services/token'
-import {client} from '../../Services/QueryGQL'
-//import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import {mutation} from '../../Services/QueryGQL'
 
 function LoginPage() {
 
-//   const handleInputChange = (event: Event) => {
-//     const { name, value }: { name: string; value: string} = event.target
-//     setState({ [name]: value })
-// }
-
-  const handleSubmit = () => {
-  console.log(client)
-  console.log("oi")
+const handleSubmit = (event: React.FormEvent) => {
+  event.preventDefault()
+  mutation()
 }
-
 
   return (
     <div className="Login-container">
     <h1 className="Title">Bem-vindo(a) à Taqtile!</h1>
     <form
-    onSubmit={()=>handleSubmit()}
+    onSubmit={handleSubmit}
     className="Form-login"
     >
         <label htmlFor="email">E-mail</label>
