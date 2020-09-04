@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-//import {client} from './QueryGQL'
 import LoginPage from './Components/LoginPage'
 
 function App() {
