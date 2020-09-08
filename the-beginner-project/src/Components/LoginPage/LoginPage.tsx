@@ -16,7 +16,6 @@ function LoginPage() {
     setPassword(event.target.value);
   };
 
-
   const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);

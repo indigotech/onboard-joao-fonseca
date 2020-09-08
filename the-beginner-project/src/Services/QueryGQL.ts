@@ -27,3 +27,29 @@ export const mutation = (email: string, password: string): Promise<void> => {
       throw error;
     });
 };
+
+export interface PaginatedUsersType {
+  nodes: [
+    name:string,
+    email:string
+  ];
+}
+
+export const query = (offset:number, limit:number): Promise<any> => {
+  return client 
+    .query({
+      query: gql `
+        getUsers {
+          gets(pageInfo: {"offset": 0, "limit": 20}) {
+            nodes {
+              name
+              email
+            }
+          }
+        }
+      `,
+    })
+    .then((result: FetchResult<{gets: PaginatedUsersType }>)) => {
+
+    }
+}
