@@ -1,15 +1,15 @@
 import React from "react";
-import './Routes.css';
+import "./Routes.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import LoginPage from '../Components/LoginPage';
-import HomePage from '../Components/HomePage';
+import LoginPage from "../Components/LoginPage";
+import HomePage from "../Components/HomePage";
 
 export const routes = {
   login: "/",
-  home: "/homepage"
+  home: "/homepage",
 };
 
- function Routes() {
+function Routes() {
   return (
     <Router>
       <div className="Container">
@@ -20,4 +20,4 @@ export const routes = {
   );
 }
 
-export default Routes
+export default Routes;

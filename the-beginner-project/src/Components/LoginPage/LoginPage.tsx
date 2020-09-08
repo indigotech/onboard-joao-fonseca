@@ -1,49 +1,48 @@
-import React, {useState} from 'react';
-import './styled.css';
-import {mutation} from '../../Services/QueryGQL';
+import React, { useState } from "react";
+import "./styled.css";
+import { mutation } from "../../Services/QueryGQL";
 import { useHistory } from "react-router";
 
 function LoginPage() {
   const history = useHistory();
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  const handleInputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+  const handleInputPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
 
-
-  const handleForm = (event: React.FormEvent) => {
-  event.preventDefault()
-  mutation(email, password)
-  history.push("/homepage")
-  }
-
- const handleInputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setEmail(event.target.value)
-  }
- const handleInputPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setPassword(event.target.value)
-  }
+  const handleForm = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      await mutation(email, password);
+      history.push("/homepage");
+    } catch (Error) {
+      alert(Error);
+    }
+  };
 
   return (
     <div className="Login-container">
       <h1 className="Title">Bem-vindo(a) à Taqtile!</h1>
-      <form
-        onSubmit={handleForm}
-        className="Form-login"
-      >
+      <form onSubmit={handleForm} className="Form-login">
         <label htmlFor="email">E-mail</label>
-        <input 
+        <input
           required
           className="Input"
           type="email"
           placeholder="email@email.co"
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           title="Not a valid email format"
-          id="email" 
+          id="email"
           value={email}
-          onChange={handleInputEmail}         
+          onChange={handleInputEmail}
         />
         <label htmlFor="password">Senha</label>
-        <input 
+        <input
           required
           className="Input"
           type="password"
@@ -55,10 +54,7 @@ function LoginPage() {
           value={password}
           onChange={handleInputPassword}
         />
-        <button
-          type="submit"
-          className="Button"
-        >
+        <button type="submit" className="Button">
           Entrar
         </button>
       </form>
