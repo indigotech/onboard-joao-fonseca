@@ -2,6 +2,11 @@ import React from "react";
 import "./styled.css";
 
 function HomePage() {
+
+  const listUsers = async () => {
+    
+  }
+
   return (
     <div className="Login-container">
       <h1 className="Title">Bem-vindo(a) a sua HomePage da Taqtile!</h1>

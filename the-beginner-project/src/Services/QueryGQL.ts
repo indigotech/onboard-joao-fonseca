@@ -28,19 +28,19 @@ export const mutation = (email: string, password: string): Promise<void> => {
     });
 };
 
-export interface PaginatedUsersType {
-  nodes: [
-    name:string,
-    email:string
-  ];
-}
+// export interface PaginatedUsersType {
+//   nodes: [
+//     name:string,
+//     email:string
+//   ];
+// }    tipagem de fetchResult: <{gets: PaginatedUsersType }>
 
 export const query = (offset:number, limit:number): Promise<any> => {
   return client 
     .query({
       query: gql `
         getUsers {
-          gets(pageInfo: {"offset": 0, "limit": 20}) {
+          gets(pageInfo: {offset: 0, limit: 20}) {
             nodes {
               name
               email
@@ -49,7 +49,10 @@ export const query = (offset:number, limit:number): Promise<any> => {
         }
       `,
     })
-    .then((result: FetchResult<{gets: PaginatedUsersType }>)) => {
-
-    }
+    .then((result: FetchResult) => {
+      console.log(result)  
+    })
+    .catch((error)=>{
+      throw error;
+    })
 }

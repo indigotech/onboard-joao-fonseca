@@ -56,10 +56,10 @@ function LoginPage() {
           id="password"
           value={password}
           onChange={handleInputPassword}
-        /> 
-        <button  type="submit" className="Button">
-          {loading ? "Entrando...":"Entrar"}
-        </button>
+        />         
+        {loading ? 
+        "Entrando...":
+        <button  type="submit" className="Button">Entrar</button>}
       </form>
     </div>
   );
