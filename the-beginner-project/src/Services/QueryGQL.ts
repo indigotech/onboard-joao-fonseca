@@ -1,13 +1,28 @@
-import { ApolloClient, InMemoryCache, gql, FetchResult } from "@apollo/client";
+import { ApolloClient, InMemoryCache, gql, FetchResult, createHttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
-export interface LoginType {
-  token: string;
-}
+const httpLink = createHttpLink({
+  uri:"https://tq-template-server-sample.herokuapp.com/graphql"
+});
 
-export const client = new ApolloClient({
-  uri: "https://tq-template-server-sample.herokuapp.com/graphql",
+const authLink = setContext((_, {headers}) => {
+  const token = localStorage.getItem("beginner-token");
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `${token}` : "",
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
+
+interface LoginType {
+  token: string;
+}
 
 export const mutation = (email: string, password: string): Promise<void> => {
   return client
@@ -28,19 +43,12 @@ export const mutation = (email: string, password: string): Promise<void> => {
     });
 };
 
-// export interface PaginatedUsersType {
-//   nodes: [
-//     name:string,
-//     email:string
-//   ];
-// }    tipagem de fetchResult: <{gets: PaginatedUsersType }>
-
-export const query = (offset:number, limit:number): Promise<any> => {
+export const listUsers = async ():Promise<void> => {
   return client 
     .query({
       query: gql `
-        getUsers {
-          gets(pageInfo: {offset: 0, limit: 20}) {
+        query getUsers {
+          gets(pageInfo: {offset: ${0}, limit: ${20}}) {
             nodes {
               name
               email
@@ -49,10 +57,11 @@ export const query = (offset:number, limit:number): Promise<any> => {
         }
       `,
     })
-    .then((result: FetchResult) => {
-      console.log(result)  
+    .then((result) => {
+      const fetchData = result.data.users.nodes
+      console.log(fetchData)  
     })
     .catch((error)=>{
-      throw error;
+      console.log(error);
     })
 }

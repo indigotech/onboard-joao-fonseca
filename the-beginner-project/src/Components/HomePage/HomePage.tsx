@@ -1,10 +1,11 @@
 import React from "react";
 import "./styled.css";
+import {listUsers} from "../../Services/QueryGQL"
 
 function HomePage() {
 
-  const listUsers = async () => {
-    
+  const setUsersList = () => { 
+    console.log(listUsers())
   }
 
   return (
@@ -14,6 +15,9 @@ function HomePage() {
         <li>Nome</li>
         <li>Email</li>
       </ul>
+      {
+        setUsersList()
+      }
       <ul>
         <li>Nome</li>
         <li>Email</li>
