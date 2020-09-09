@@ -10,8 +10,16 @@
   max-width: 400px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   font-size: calc(10px + 2vmin);
   color: black;
   padding: 50px 20px;
+}
+.Page-buttons {
+  display: flex;
+}
+.Single-user-data{  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }

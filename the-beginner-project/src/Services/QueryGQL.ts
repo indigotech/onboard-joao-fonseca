@@ -43,12 +43,12 @@ export const login = (email: string, password: string): Promise<void> => {
     });
 };
 
-export const listUsers = async ():Promise<any> => {
+export const listUsers = async (offSet: number):Promise<any> => {
   return client 
     .query({
       query: gql `
         query getUsers {
-          users(pageInfo: {offset: ${0}, limit: ${20}}) {
+          users(pageInfo: {offset: ${offSet}, limit: ${10}}) {
             nodes {
               name
               email
