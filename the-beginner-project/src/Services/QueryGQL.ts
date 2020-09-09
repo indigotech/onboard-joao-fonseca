@@ -24,7 +24,7 @@ interface LoginType {
   token: string;
 }
 
-export const mutation = (email: string, password: string): Promise<void> => {
+export const login = (email: string, password: string): Promise<void> => {
   return client
     .mutate({
       mutation: gql`
@@ -43,12 +43,12 @@ export const mutation = (email: string, password: string): Promise<void> => {
     });
 };
 
-export const listUsers = async ():Promise<void> => {
+export const listUsers = async ():Promise<any> => {
   return client 
     .query({
       query: gql `
         query getUsers {
-          gets(pageInfo: {offset: ${0}, limit: ${20}}) {
+          users(pageInfo: {offset: ${0}, limit: ${20}}) {
             nodes {
               name
               email
@@ -58,8 +58,7 @@ export const listUsers = async ():Promise<void> => {
       `,
     })
     .then((result) => {
-      const fetchData = result.data.users.nodes
-      console.log(fetchData)  
+      return result.data.users.nodes
     })
     .catch((error)=>{
       console.log(error);
