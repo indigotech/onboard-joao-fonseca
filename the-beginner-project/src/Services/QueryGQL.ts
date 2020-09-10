@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, gql, FetchResult } from "@apollo/client";
 
-interface LoginType {
+export interface LoginType {
   token: string;
 }
 
@@ -22,7 +22,6 @@ export const mutation = (email: string, password: string): Promise<void> => {
     })
     .then((result: FetchResult<{ login: LoginType }>) => {
       localStorage.setItem("beginner-token", result.data.login.token);
-      console.log(result.data.login.token);
     })
     .catch((error) => {
       throw error;

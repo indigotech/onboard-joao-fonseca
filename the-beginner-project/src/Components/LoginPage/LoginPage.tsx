@@ -5,8 +5,9 @@ import { useHistory } from "react-router";
 
 function LoginPage() {
   const history = useHistory();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleInputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -15,12 +16,15 @@ function LoginPage() {
     setPassword(event.target.value);
   };
 
+
   const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
+    setLoading(true);
     try {
       await mutation(email, password);
       history.push("/homepage");
     } catch (Error) {
+      setLoading(false)
       alert(Error);
     }
   };
@@ -53,9 +57,9 @@ function LoginPage() {
           id="password"
           value={password}
           onChange={handleInputPassword}
-        />
-        <button type="submit" className="Button">
-          Entrar
+        /> 
+        <button  type="submit" className="Button">
+          {loading ? "Entrando...":"Entrar"}
         </button>
       </form>
     </div>
