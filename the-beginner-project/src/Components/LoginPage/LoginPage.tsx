@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styled.css";
-import { mutation } from "../../Services/QueryGQL";
+import { login } from "../../Services/QueryGQL";
 import { useHistory } from "react-router";
 
 function LoginPage() {
@@ -16,12 +16,11 @@ function LoginPage() {
     setPassword(event.target.value);
   };
 
-
   const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
     try {
-      await mutation(email, password);
+      await login(email, password);
       history.push("/homepage");
     } catch (Error) {
       setLoading(false)
@@ -57,10 +56,10 @@ function LoginPage() {
           id="password"
           value={password}
           onChange={handleInputPassword}
-        /> 
-        <button  type="submit" className="Button">
-          {loading ? "Entrando...":"Entrar"}
-        </button>
+        />         
+        {loading ? 
+        "Entrando...":
+        <button  type="submit" className="Button">Entrar</button>}
       </form>
     </div>
   );

@@ -1,21 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import "./styled.css";
-//import { useHistory } from "react-router";
+import {listUsers} from "../../Services/QueryGQL";
 
 function HomePage() {
-  // const history = useHistory();
-  //  const componentDidMount:any () => {
-  //     const token = localStorage.getItem("token")
-  //     if (token === null) {
-  //       history.push("/")
-  //     }
-  //   }
-  //const isLoggedIn = HomePageProps.isLoggedIn;
+  const [usersList, setUsersList] = useState([])
+
+  useEffect(() => {
+    async function fetchUsers() {
+      const getUsers = await listUsers()
+      console.log(getUsers)
+      setUsersList(getUsers)
+    }
+    fetchUsers();
+  }, []);
 
   return (
     <div className="Login-container">
       <h1 className="Title">Bem-vindo(a) a sua HomePage da Taqtile!</h1>
-    </div>
+        {usersList.map((user: any) => {
+          return (
+            <ul>
+              <li>{user.name}</li>
+              <li>{user.email}</li>
+            </ul>
+          );
+        })}
+      </div>
   );
 }
 
