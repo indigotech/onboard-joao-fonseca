@@ -3,10 +3,12 @@ import "./Routes.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import LoginPage from "../Components/LoginPage";
 import HomePage from "../Components/HomePage";
+import AddUserPage from "../Components/AddUserPage";
 
 export const routes = {
   login: "/",
   home: "/homepage",
+  signUp: "/signup"
 };
 
 function Routes() {
@@ -15,6 +17,7 @@ function Routes() {
       <div className="Container">
         <Route exact path={routes.login} component={LoginPage} />
         <Route exact path={routes.home} component={HomePage} />
+        <Route exact path={routes.signUp} component={AddUserPage} />
       </div>
     </Router>
   );
