@@ -4,30 +4,27 @@ import { listUsers } from "../../Services/QueryGQL";
 
 function HomePage() {
   const [usersList, setUsersList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [offSet, setOffSet] = useState(0);
+  const [usersPerPage, setUsersPerPage] = useState(10);
 
   useEffect(() => {
     async function fetchUsers() {
       const getUsers = await listUsers(offSet);
-      console.log(getUsers);
       setUsersList(getUsers);
+      setUsersPerPage(getUsers.length)
     }
     fetchUsers();
   }, [offSet]);
 
-  const loadMoreUsers = (event: React.MouseEvent) => {
-    if (offSet === 90) {
-      alert("Acabou a lista");
-    } else {
+  const loadNexUsers = (event: React.MouseEvent) => {
+    if (usersPerPage === 10) {
       setOffSet(offSet + 10);
-      setCurrentPage(currentPage + 1);
+    } else {
+    alert("Última página de usuários");
     }
   };
-  const loadLessUsers = (event: React.MouseEvent) => {
-    if (offSet === 0) {
-    } else {
-      setCurrentPage(currentPage - 1);
+  const loadPreviousUsers = (event: React.MouseEvent) => {
+    if (offSet !== 0) {
       setOffSet(offSet - 10);
     }
   };
@@ -47,8 +44,8 @@ function HomePage() {
         })}
       </ul>
       <div className="Page-buttons">
-        <button onClick={loadLessUsers}>Últimos 10 usuários</button>
-        <button onClick={loadMoreUsers}>Próximos 10 usuários</button>
+        <button onClick={loadPreviousUsers}>Últimos 10 usuários</button>
+        <button onClick={loadNexUsers}>Próximos 10 usuários</button>
       </div>
     </div>
   );

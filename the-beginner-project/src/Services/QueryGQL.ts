@@ -5,8 +5,10 @@ const httpLink = createHttpLink({
   uri:"https://tq-template-server-sample.herokuapp.com/graphql"
 });
 
+const beginnerToken = "beginner-token"
+
 const authLink = setContext((_, {headers}) => {
-  const token = localStorage.getItem("beginner-token");
+  const token = localStorage.getItem(beginnerToken);
   return {
     headers: {
       ...headers,
@@ -36,14 +38,18 @@ export const login = (email: string, password: string): Promise<void> => {
       `,
     })
     .then((result: FetchResult<{ login: LoginType }>) => {
-      localStorage.setItem("beginner-token", result.data.login.token);
+      localStorage.setItem(beginnerToken, result.data.login.token);
     })
     .catch((error) => {
       throw error;
     });
 };
 
-export const listUsers = async (offSet: number):Promise<any> => {
+interface PaginatedUsersType {
+  nodes: string;
+}
+
+export const listUsers = async (offSet: number):Promise<PaginatedUsersType[]> => {
   return client 
     .query({
       query: gql `
