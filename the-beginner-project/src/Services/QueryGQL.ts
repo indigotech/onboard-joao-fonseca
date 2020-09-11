@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, gql, FetchResult, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import {LoginType, PaginatedUsersType, UserInputType, UserType} from "./Interfaces"
 
 const httpLink = createHttpLink({
   uri:"https://tq-template-server-sample.herokuapp.com/graphql"
@@ -22,9 +23,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-interface LoginType {
-  token: string;
-}
+
 
 export const loginMutation = (email: string, password: string): Promise<void> => {
   return client
@@ -45,16 +44,12 @@ export const loginMutation = (email: string, password: string): Promise<void> =>
     });
 };
 
-interface PaginatedUsersType {
-  nodes: string;
-}
-
-export const listUsers = async (offSet: number):Promise<PaginatedUsersType[]> => {
+export const listUsersQuery = async (offSet: number, limit: number):Promise<PaginatedUsersType[]> => {
   return client 
     .query({
       query: gql `
         query getUsers {
-          users(pageInfo: {offset: ${offSet}, limit: ${10}}) {
+          users(pageInfo: {offset: ${offSet}, limit: ${limit}}) {
             nodes {
               name
               email
@@ -71,4 +66,21 @@ export const listUsers = async (offSet: number):Promise<PaginatedUsersType[]> =>
     })
 }
 
-//export const addUser = async ()
+export const addUserMutation = (newUserData: UserInputType): Promise<boolean> => {
+  return client
+    .mutate({
+      mutation: gql`
+        mutation {
+          createUser(data: {newUserData: "${newUserData}"}) {
+            id
+          }
+        }
+      `,
+    })
+    .then(() => {
+      return true 
+    })
+    .catch((err) => {
+      throw err;
+    });
+}
