@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from "react";
 import { useHistory } from "react-router";
 import "./styled.css";
-import InputMask from "react-input-mask"
+import { addUserMutation } from "../../Services/QueryGQL";
 
   const initialState = {
     name: "",
@@ -29,9 +29,17 @@ function AddUserPage() {
   const onChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({ field: event.target.name, value: event.target.value})
   }
-  const handleSignupForm = (event: React.FormEvent) => {
+  const handleSignupReq = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
+    try{
+      await addUserMutation(state)
+      history.push("/homepage")
+    } catch (Error) {
+      setLoading(false)
+      alert(Error);
+      console.log(Error.message)
+    }
   };
 
   const {name, email, phone, birthDate, password, role} = state
@@ -39,7 +47,7 @@ function AddUserPage() {
   return (
     <div className="Signup-container">
       <h1 className="Title">Bem-vindo(a) a página de cadastro!</h1>
-      <form onSubmit={handleSignupForm} className="Form-signup">
+      <form onSubmit={handleSignupReq} className="Form-signup">
         <label htmlFor="name">Nome</label>
         <input
           onChange={onChange}
@@ -78,16 +86,13 @@ function AddUserPage() {
           id="phone"
         />         
         <label htmlFor="birthDate">Data de Nascimento</label>
-        <InputMask 
+        <input 
           onChange={onChange}
-          mask="9999-99-99"
           value={birthDate}
           required
           className="Input-signup"
-          type="text"
+          type="date"
           name="birthDate"
-          placeholder="aaaa-mm-dd"
-          title="Siga o formato: aaaa-mm-dd"
           id="birthDate"
         />         
         <label htmlFor="password">Senha</label>

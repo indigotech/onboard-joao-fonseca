@@ -12,6 +12,10 @@ export interface UserInputType {
     password: string
     role: string
 }
+export interface LoginInputType {
+    email: string
+    password: string
+}
 export interface UserType {
     id: string
     name: string

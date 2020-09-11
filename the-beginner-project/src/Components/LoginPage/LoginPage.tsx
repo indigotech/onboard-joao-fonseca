@@ -5,26 +5,31 @@ import { useHistory } from "react-router";
 
 function LoginPage() {
   const history = useHistory();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+  });
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleInputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-  const handleInputPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setState({
+      ...state,
+      [event.target.name]: value,
+    })
   };
 
   const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
     try {
-      await loginMutation(email, password);
+      await loginMutation(state);
       history.push("/homepage");
+      
     } catch (Error) {
       setLoading(false)
       alert(Error);
+      console.log(state)
     }
   };
 
@@ -37,12 +42,13 @@ function LoginPage() {
           required
           className="Input"
           type="email"
+          name="email"
           placeholder="email@email.co"
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           title="Not a valid email format"
           id="email"
-          value={email}
-          onChange={handleInputEmail}
+          value={state.email}
+          onChange={handleInput}
         />
         <label htmlFor="password">Senha</label>
         <input
@@ -54,8 +60,8 @@ function LoginPage() {
           title="7 characters minimum, and should have at least one digit and one letter"
           placeholder="7 characters minimum"
           id="password"
-          value={password}
-          onChange={handleInputPassword}
+          value={state.password}
+          onChange={handleInput}
         />         
         {loading ? 
         "Entrando...":
