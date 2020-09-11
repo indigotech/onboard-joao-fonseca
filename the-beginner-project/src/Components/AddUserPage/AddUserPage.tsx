@@ -3,21 +3,24 @@ import { useHistory } from "react-router";
 import "./styled.css";
 import { addUserMutation } from "../../Services/QueryGQL";
 
-  const initialState = {
-    name: "",
-    email: "",
-    phone: "",
-    birthDate: "",
-    password: "",
-    role: "",
+const initialState = {
+  name: "",
+  email: "",
+  phone: "",
+  birthDate: "",
+  password: "",
+  role: "",
+}
+
+function reducer(state: any, { field, value}: any) {
+  return {
+    ...state,
+    [field]: value
   }
-  function reducer(state: any, { field, value}: any) {
-    return {
-      ...state,
-      [field]: value
-    }
-  }
+}
+
 function AddUserPage() {
+
   const history = useHistory();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -26,9 +29,11 @@ function AddUserPage() {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ field: event.target.name, value: event.target.value})
   }
+
   const onChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({ field: event.target.name, value: event.target.value})
   }
+
   const handleSignupReq = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
@@ -38,7 +43,6 @@ function AddUserPage() {
     } catch (Error) {
       setLoading(false)
       alert(Error);
-      console.log(Error.message)
     }
   };
 

@@ -23,8 +23,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-
-
 export const loginMutation = (loginData: LoginInputType): Promise<void> => {
   return client
     .mutate({
@@ -60,6 +58,7 @@ export const listUsersQuery = async (offSet: number, limit: number):Promise<Pagi
       `,
     })
     .then((result) => {
+      console.log(result.data.users.nodes)
       return result.data.users.nodes
     })
     .catch((error)=>{

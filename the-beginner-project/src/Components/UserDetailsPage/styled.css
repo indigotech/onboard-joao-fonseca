@@ -1,0 +1,60 @@
+.Nav-bar {
+  width: 100%;
+  height: 50px;
+  background-color: mediumslateblue;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10%;
+  align-items: center;
+}
+.Nav-button {
+  background-color: white;
+  color: mediumslateblue;
+  border: none;
+  border-radius: 18px;
+  outline: none;
+  height: fit-content;
+  font-size: 16px;
+  font-weight: 600;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.Nav-button:hover {
+  background-color: #4f35f5;
+  color: white;
+  cursor: pointer;
+}
+.Nav-button:active {
+  background-color: #9e90f3;
+}
+.Home-container {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Title {
+  align-self: flex-start;
+  font-size: 28px;
+  margin-bottom: 60px;
+}
+.User-list-container {
+  height: fit-content;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: calc(10px + 2vmin);
+  color: black;
+  padding: 30px 20px;
+}
+.Page-buttons {
+  display: flex;
+  align-self: center;
+}
+.Single-user-data{  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
