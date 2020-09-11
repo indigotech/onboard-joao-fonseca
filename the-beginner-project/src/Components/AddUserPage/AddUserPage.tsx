@@ -1,6 +1,7 @@
 import React, { useState, useReducer } from "react";
 import { useHistory } from "react-router";
 import "./styled.css";
+import InputMask from "react-input-mask"
 
   const initialState = {
     name: "",
@@ -72,21 +73,21 @@ function AddUserPage() {
           type="text"
           name="phone"
           placeholder="Somente dígitos"
-          title="Somente dígitos"
-          pattern="(?=.*[0-9]).{7,}"
+          title="Mínimo 8 dígitos"
+          pattern={"[0-9]{8,14}"}
           id="phone"
         />         
         <label htmlFor="birthDate">Data de Nascimento</label>
-        <input
+        <InputMask 
           onChange={onChange}
+          mask="9999-99-99"
           value={birthDate}
           required
           className="Input-signup"
-          type="date"
+          type="text"
           name="birthDate"
-          placeholder="Somente dígitos"
-          title="Somente dígitos"
-          pattern="([0-9]).{7,}"
+          placeholder="aaaa-mm-dd"
+          title="Siga o formato: aaaa-mm-dd"
           id="birthDate"
         />         
         <label htmlFor="password">Senha</label>

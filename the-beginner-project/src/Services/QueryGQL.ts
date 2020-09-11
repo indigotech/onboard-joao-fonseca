@@ -26,7 +26,7 @@ interface LoginType {
   token: string;
 }
 
-export const login = (email: string, password: string): Promise<void> => {
+export const loginMutation = (email: string, password: string): Promise<void> => {
   return client
     .mutate({
       mutation: gql`
@@ -70,3 +70,5 @@ export const listUsers = async (offSet: number):Promise<PaginatedUsersType[]> =>
       console.log(error);
     })
 }
+
+//export const addUser = async ()

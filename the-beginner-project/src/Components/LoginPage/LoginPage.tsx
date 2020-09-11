@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styled.css";
-import { login } from "../../Services/QueryGQL";
+import { loginMutation } from "../../Services/QueryGQL";
 import { useHistory } from "react-router";
 
 function LoginPage() {
@@ -20,7 +20,7 @@ function LoginPage() {
     event.preventDefault();
     setLoading(true);
     try {
-      await login(email, password);
+      await loginMutation(email, password);
       history.push("/homepage");
     } catch (Error) {
       setLoading(false)
