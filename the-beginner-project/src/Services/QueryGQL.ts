@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, gql, FetchResult, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import {LoginType, PaginatedUsersType, UserInputType, LoginInputType} from "./Interfaces"
+import {LoginType, PaginatedUsersType, UserInputType, LoginInputType, UserType} from "./Interfaces"
 
 const httpLink = createHttpLink({
   uri:"https://tq-template-server-sample.herokuapp.com/graphql"
@@ -58,13 +58,12 @@ export const listUsersQuery = async (offSet: number, limit: number):Promise<Pagi
       `,
     })
     .then((result) => {
-      console.log(result.data.users.nodes)
       return result.data.users.nodes
     })
     .catch((error)=>{
-      console.log(error);
+      alert(error);
     })
-}
+};
 
 export const addUserMutation = (newUserData: UserInputType): Promise<void> => {
   return client
@@ -85,4 +84,30 @@ export const addUserMutation = (newUserData: UserInputType): Promise<void> => {
     .catch((err) => {
       throw err;
     });
-}
+};
+
+export const getUserQuery = async (userId: number):Promise<UserType> => {
+  return client 
+    .query({
+      query: gql `
+        query getUser {
+          user(id: ${userId}) {
+              id
+              name
+              phone
+              birthDate
+              email
+              role
+          }
+        }
+      `,
+      variables: {userId}
+    })
+    .then((result) => {
+      console.log(result.data.user)
+      return result.data.user
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+};

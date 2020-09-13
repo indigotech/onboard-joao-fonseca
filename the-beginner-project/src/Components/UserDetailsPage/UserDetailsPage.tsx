@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./styled.css";
-import { listUsersQuery } from "../../Services/QueryGQL";
+import { getUserQuery } from "../../Services/QueryGQL";
 import { useHistory } from "react-router";
 
 function UserDetailsPage() {
-  const [usersList, setUsersList] = useState([]);
-  const [offSet, setOffSet] = useState(0);
-  const [usersPerPage, setUsersPerPage] = useState(10);
-  const [limit] = useState (10)
+  const [userId, setUserId] = useState(1);
 
   useEffect(() => {
-    async function fetchUsers() {
-      const getUsers = await listUsersQuery(offSet, limit);
-      setUsersList(getUsers);
-      setUsersPerPage(getUsers.length)
-
+    async function fetchUserData() {
+      const user = await getUserQuery(userId); 
+      console.log(user)
     }
-    fetchUsers();
-  }, [offSet, limit]);
+    fetchUserData();
+  }, [userId]);
 
   const history = useHistory();
   const handleClick = (event: React.MouseEvent) => {
@@ -33,6 +28,9 @@ function UserDetailsPage() {
       </nav>
       <div className="User-list-container">
         <h1 className="Title">Bem-vindo(a) a página de detalhes de um usuário</h1>      
+        {
+      
+        }
       </div>
     </div>
   );

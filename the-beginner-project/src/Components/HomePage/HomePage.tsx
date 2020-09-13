@@ -14,7 +14,6 @@ function HomePage() {
       const getUsers = await listUsersQuery(offSet, limit);
       setUsersList(getUsers);
       setUsersPerPage(getUsers.length)
-
     }
     fetchUsers();
   }, [offSet, limit]);
