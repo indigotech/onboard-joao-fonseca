@@ -3,16 +3,20 @@ import "./styled.css";
 import { getUserQuery } from "../../Services/QueryGQL";
 import { useHistory } from "react-router";
 
+
 function UserDetailsPage() {
   const [userId, setUserId] = useState(1);
+  const [userData, setUserData] = useState({})
+
 
   useEffect(() => {
     async function fetchUserData() {
       const user = await getUserQuery(userId); 
-      console.log(user)
+      setUserData(user)
     }
     fetchUserData();
-  }, [userId]);
+  }, [userId, userData]);
+  console.log(userData)
 
   const history = useHistory();
   const handleClick = (event: React.MouseEvent) => {
@@ -29,7 +33,7 @@ function UserDetailsPage() {
       <div className="User-list-container">
         <h1 className="Title">Bem-vindo(a) a página de detalhes de um usuário</h1>      
         {
-      
+          <p>userData</p>
         }
       </div>
     </div>

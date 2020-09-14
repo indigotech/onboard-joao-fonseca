@@ -3,11 +3,12 @@ import "./styled.css";
 import { listUsersQuery } from "../../Services/QueryGQL";
 import { useHistory } from "react-router";
 
-function HomePage() {
+function HomePage(userdId: number) {
   const [usersList, setUsersList] = useState([]);
   const [offSet, setOffSet] = useState(0);
   const [usersPerPage, setUsersPerPage] = useState(10);
   const [limit] = useState (10)
+  //const [userId, setUserId] = useState(0)
 
   useEffect(() => {
     async function fetchUsers() {
@@ -25,36 +26,49 @@ function HomePage() {
     alert("Última página de usuários");
     }
   };
+
   const loadPreviousUsers = (event: React.MouseEvent) => {
     if (offSet !== 0) {
       setOffSet(offSet - 10);
     }
   };
+
   const history = useHistory();
-  const handleClick = (event: React.MouseEvent) => {
+
+  const handleClickSignUp = (event: React.MouseEvent) => {
     history.push("/signup")
   }
+
+  const handleClickUserDetails = (userId: number) => (event: React.MouseEvent) => {
+    console.log(userId)
+    const idUser = userId
+     history.push({
+       pathname: "/user_details",
+       //state: idUser
+     })  
+  }
+
 
   return (
     <div className="Home-container">    
       <nav className="Nav-bar">
-        <button onClick={handleClick} className="Nav-button">
+        <button onClick={handleClickSignUp} className="Nav-button">
           Novo Usuário
         </button>
       </nav>
       <div className="User-list-container">
         <h1 className="Title">Bem-vindo(a) a sua HomePage da Taqtile!</h1>
-        <ul>
+        
           {usersList.map((user: any) => {
             return (
-              <div className="Single-user-data">
+              <div onClick={handleClickUserDetails(user.id)} className="Single-user-data">
                 <li>{user.name}</li>
                 <li>{user.email}</li>
-                <br></br>
+                <li>{user.id}</li>
               </div>
             );
           })}
-        </ul>
+      
         <div className="Page-buttons">
           <button onClick={loadPreviousUsers}>Últimos {limit} usuários</button>
           <button onClick={loadNextUsers}>Próximos {limit} usuários</button>

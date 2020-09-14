@@ -52,6 +52,7 @@ export const listUsersQuery = async (offSet: number, limit: number):Promise<Pagi
             nodes {
               name
               email
+              id
             }
           }
         }

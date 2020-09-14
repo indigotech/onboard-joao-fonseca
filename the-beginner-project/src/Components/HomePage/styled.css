@@ -6,6 +6,7 @@
   justify-content: flex-end;
   padding-right: 10%;
   align-items: center;
+  box-sizing: border-box;
 }
 .Nav-button {
   background-color: white;
@@ -44,7 +45,7 @@
   max-width: 400px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   font-size: calc(10px + 2vmin);
   color: black;
   padding: 30px 20px;
@@ -53,8 +54,30 @@
   display: flex;
   align-self: center;
 }
-.Single-user-data{  
+.Single-user-data {  
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  border: 2px solid black;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  width: 300px;
+  word-wrap: break-word;
+  cursor: pointer;
+}
+
+.Single-user-data:hover {
+  background-color: black;
+  color: white;
+}
+.Single-user-data:active {
+  background-color: #4c4545;
+}
+.Single-user-data > li {
+  list-style: none;
+  width: 100%;
+  word-wrap: break-word;
+  white-space: pre-wrap
 }
