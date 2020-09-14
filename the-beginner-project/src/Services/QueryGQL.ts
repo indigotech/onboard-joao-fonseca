@@ -63,7 +63,7 @@ export const listUsersQuery = async (offSet: number, limit: number):Promise<Pagi
     })
     .catch((error)=>{
       alert(error);
-    })
+    });
 };
 
 export const addUserMutation = (newUserData: UserInputType): Promise<void> => {
@@ -108,6 +108,6 @@ export const getUserQuery = async (userId: number):Promise<UserType> => {
       return result.data.user
     })
     .catch((error)=>{
-      console.log(error);
-    })
+      alert(error);
+    });
 };

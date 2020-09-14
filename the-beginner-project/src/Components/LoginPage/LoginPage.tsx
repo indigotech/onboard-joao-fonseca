@@ -23,14 +23,14 @@ function LoginPage() {
       const loginVariables = {
         email,
         password
-      }
+      };
       await loginMutation(loginVariables);
       history.push("/homepage");
       
     } catch (Error) {
       setLoading(false)
       alert(Error);
-    }
+    };
   };
 
   return (
@@ -69,6 +69,6 @@ function LoginPage() {
       </form>
     </div>
   );
-}
+};
 
 export default LoginPage;

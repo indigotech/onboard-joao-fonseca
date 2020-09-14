@@ -7,7 +7,7 @@ function HomePage() {
   const [usersList, setUsersList] = useState([]);
   const [offSet, setOffSet] = useState(0);
   const [usersPerPage, setUsersPerPage] = useState(10);
-  const [limit] = useState (10)
+  const [limit] = useState (10);
 
   useEffect(() => {
     async function fetchUsers() {
@@ -23,7 +23,7 @@ function HomePage() {
       setOffSet(offSet + limit);
     } else {
     alert("Última página de usuários");
-    }
+    };
   };
 
   const loadPreviousUsers = (event: React.MouseEvent) => {
@@ -35,14 +35,14 @@ function HomePage() {
   const history = useHistory();
 
   const handleClickSignUp = (event: React.MouseEvent) => {
-    history.push("/signup")
-  }
+    history.push("/signup");
+  };
 
   const handleClickUserDetails = (userId: string) => (event: React.MouseEvent) => {
       history.push({
         pathname: `/user_details/${userId}`,
-      })  
-  }
+      });
+  };
 
 
   return (
@@ -53,18 +53,15 @@ function HomePage() {
         </button>
       </nav>
       <div className="User-list-container">
-        <h1 className="Title">Bem-vindo(a) a sua HomePage da Taqtile!</h1>
-        
+        <h1 className="Title">Bem-vindo(a) a sua HomePage da Taqtile!</h1>       
           {usersList.map((user: any) => {
             return (
               <div onClick={handleClickUserDetails(user.id)} className="Single-user-data">
                 <li>{user.name}</li>
                 <li>{user.email}</li>
-                <li>{user.id}</li>
               </div>
             );
-          })}
-      
+          })}; 
         <div className="Page-buttons">
           <button onClick={loadPreviousUsers}>Últimos {limit} usuários</button>
           <button onClick={loadNextUsers}>Próximos {limit} usuários</button>
@@ -72,6 +69,6 @@ function HomePage() {
       </div>
     </div>
   );
-}
+};
 
 export default HomePage;
