@@ -5,31 +5,31 @@ import { useHistory } from "react-router";
 
 function LoginPage() {
   const history = useHistory();
-  const [state, setState] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setState({
-      ...state,
-      [event.target.name]: value,
-    })
+  const handleInputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+  const handleInputPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
   };
 
   const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
     try {
-      await loginMutation(state);
+      const loginVariables = {
+        email,
+        password
+      }
+      await loginMutation(loginVariables);
       history.push("/homepage");
       
     } catch (Error) {
       setLoading(false)
       alert(Error);
-      console.log(state)
     }
   };
 
@@ -47,8 +47,8 @@ function LoginPage() {
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           title="Not a valid email format"
           id="email"
-          value={state.email}
-          onChange={handleInput}
+          value={email}
+          onChange={handleInputEmail}
         />
         <label htmlFor="password">Senha</label>
         <input
@@ -60,8 +60,8 @@ function LoginPage() {
           title="7 characters minimum, and should have at least one digit and one letter"
           placeholder="7 characters minimum"
           id="password"
-          value={state.password}
-          onChange={handleInput}
+          value={password}
+          onChange={handleInputPassword}
         />         
         {loading ? 
         "Entrando...":
