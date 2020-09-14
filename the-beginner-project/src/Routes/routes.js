@@ -20,7 +20,7 @@ function Routes() {
         <Route exact path={routes.login} component={LoginPage} />
         <Route exact path={routes.home} component={HomePage} />
         <Route exact path={routes.signUp} component={AddUserPage} />
-        <Route exact path={routes.userDetailsPage} component={UserDetailsPage} />
+        <Route exact path={"/user_details/:id"} component={UserDetailsPage} />
       </div>
     </Router>
   );

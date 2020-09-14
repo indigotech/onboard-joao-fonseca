@@ -4,35 +4,36 @@ import "./styled.css";
 import { addUserMutation } from "../../Services/QueryGQL";
 
 const initialState = {
-  name: "",
-  email: "",
-  phone: "",
-  birthDate: "",
-  password: "",
-  role: "",
-}
+name: "",
+email: "",
+phone: "",
+birthDate: "",
+password: "",
+role: "",
+};
 
 function reducer(state: any, { field, value}: any) {
-  return {
-    ...state,
-    [field]: value
-  }
+return {
+...state,
+[field]: value
 }
+};
 
 function AddUserPage() {
 
   const history = useHistory();
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({ field: event.target.name, value: event.target.value})
-  }
+  };
 
   const onChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({ field: event.target.name, value: event.target.value})
-  }
+  };
 
   const handleSignupReq = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -43,10 +44,10 @@ function AddUserPage() {
     } catch (Error) {
       setLoading(false)
       alert(Error);
-    }
+    };
   };
 
-  const {name, email, phone, birthDate, password, role} = state
+  const {name, email, phone, birthDate, password, role} = state;
 
   return (
     <div className="Signup-container">
@@ -126,12 +127,13 @@ function AddUserPage() {
           <option value="user">user</option>
         </select>      
         {loading ?
-        "Cadastrando...":
-        <button  type="submit" className="Button">Cadastrar</button>
+          "Cadastrando..."
+        :
+          <button  type="submit" className="Button">Cadastrar</button>
         }           
       </form>
     </div>
   );
-}
+};
 
 export default AddUserPage;

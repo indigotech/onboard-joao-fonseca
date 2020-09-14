@@ -105,7 +105,6 @@ export const getUserQuery = async (userId: number):Promise<UserType> => {
       variables: {userId}
     })
     .then((result) => {
-      console.log(result.data.user)
       return result.data.user
     })
     .catch((error)=>{

@@ -3,12 +3,11 @@ import "./styled.css";
 import { listUsersQuery } from "../../Services/QueryGQL";
 import { useHistory } from "react-router";
 
-function HomePage(userdId: number) {
+function HomePage() {
   const [usersList, setUsersList] = useState([]);
   const [offSet, setOffSet] = useState(0);
   const [usersPerPage, setUsersPerPage] = useState(10);
   const [limit] = useState (10)
-  //const [userId, setUserId] = useState(0)
 
   useEffect(() => {
     async function fetchUsers() {
@@ -39,13 +38,10 @@ function HomePage(userdId: number) {
     history.push("/signup")
   }
 
-  const handleClickUserDetails = (userId: number) => (event: React.MouseEvent) => {
-    console.log(userId)
-    const idUser = userId
-     history.push({
-       pathname: "/user_details",
-       //state: idUser
-     })  
+  const handleClickUserDetails = (userId: string) => (event: React.MouseEvent) => {
+      history.push({
+        pathname: `/user_details/${userId}`,
+      })  
   }
 
 
