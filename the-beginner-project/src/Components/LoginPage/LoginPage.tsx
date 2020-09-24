@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styled.css";
-import { login } from "../../Services/QueryGQL";
+import { loginMutation } from "../../Services/QueryGQL";
 import { useHistory } from "react-router";
 
 function LoginPage() {
@@ -20,12 +20,17 @@ function LoginPage() {
     event.preventDefault();
     setLoading(true);
     try {
-      await login(email, password);
+      const loginVariables = {
+        email,
+        password
+      };
+      await loginMutation(loginVariables);
       history.push("/homepage");
+      
     } catch (Error) {
       setLoading(false)
       alert(Error);
-    }
+    };
   };
 
   return (
@@ -37,6 +42,7 @@ function LoginPage() {
           required
           className="Input"
           type="email"
+          name="email"
           placeholder="email@email.co"
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           title="Not a valid email format"
@@ -63,6 +69,6 @@ function LoginPage() {
       </form>
     </div>
   );
-}
+};
 
 export default LoginPage;
